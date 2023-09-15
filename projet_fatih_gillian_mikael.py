@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-
+from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
@@ -69,12 +69,25 @@ np.sum(one_hot)
 print(one_hot)
 # X = pd.concat([one_hot, df[["feature1", "feature2"]]], axis=1)
 X = df[["ABV"]] # [[]]
-y = one_hot
+y = df[["OG"]]
 
 #
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+RL = LinearRegression()
+RL.fit(X_train,y_train)
+
+y_predict = RL.predict(X_test)
+MSE = 1/len(y_test) * np.sum((y_predict - y_test)**2)
+print(MSE)
+MAE = 1/len(y_test) * np.sum(abs(y_predict - y_test))
+print(MAE)
+
+df2 = pd.DataFrame()
+df2.append(df)
+df2.append(df[["OG"]]-df[[]])
+'''
 # modèle Random Forest
 rf_classifier = RandomForestClassifier(n_estimators=100, max_depth=8, min_samples_split=6)
 rf_classifier.fit(X_train, y_train)
@@ -83,8 +96,9 @@ y_pred = rf_classifier.predict(X_test)
 
 # accuracy
 
-accuracy = accuracy_score(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_predict)
 print("Accuracy:", accuracy)
 
 classification_report_result = classification_report(y_test, y_pred)
 print("Classification Report:\n", classification_report_result)
+'''
