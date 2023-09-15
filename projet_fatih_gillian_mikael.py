@@ -66,7 +66,7 @@ df['bin_IBU'] = pd.cut(df['IBU'], bins, right=False)
 
 one_hot = pd.get_dummies(df["bin_IBU"])
 np.sum(one_hot)
-
+print(one_hot)
 # X = pd.concat([one_hot, df[["feature1", "feature2"]]], axis=1)
 X = df[["ABV"]] # [[]]
 y = one_hot
