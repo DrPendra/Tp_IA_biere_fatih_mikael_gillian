@@ -3,8 +3,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
+from sklearn.experimental import enable_halving_search_cv
+from sklearn.model_selection import train_test_split, HalvingGridSearchCV
 from sklearn.metrics import accuracy_score, classification_report
+
 
 pd.set_option('display.max_columns', None) # a check c'est quoi
 
@@ -27,7 +29,6 @@ df = df[df["BoilSize"] <= df["BoilSize"].quantile(0.95)]
 
 hist = df.hist(bins=50, log=True)
 
-
 new_len = len(df)
 # print(new_len / orig_leng)
 
@@ -46,7 +47,7 @@ cb = plt.colorbar()
 cb.ax.tick_params(labelsize=10)
 plt.title('Correlation Matrix', fontsize=16)
 
-plt.show()
+#plt.show()
 plt.close()
 ############### ^^"
 # Scatterplot pour mettre en avant => corrélation positive
@@ -55,10 +56,10 @@ plt.scatter(df["ABV"], df["OG"])
 plt.xlabel("ABV")
 plt.ylabel("OG")
 plt.title("La corrélation linéaire de ABV et de OG")
-plt.show()
+#plt.show()
 # BIN
-bins = [0, 20, 40, 60, 80, 100, 150]
-labels = []
+bins = [0, 30, 60, 150]
+labels = ["low", "medium", "high"]
 
 df['bin_IBU'] = pd.cut(df['IBU'], bins, right=False)
 
@@ -83,22 +84,28 @@ MSE = 1/len(y_test) * np.sum((y_predict - y_test)**2)
 print(MSE)
 MAE = 1/len(y_test) * np.sum(abs(y_predict - y_test))
 print(MAE)
+print(df[["FG"]])
 
-df2 = pd.DataFrame()
-df2.append(df)
-df2.append(df[["OG"]]-df[[]])
-'''
+# X = pd.concat([one_hot, df[["feature1", "feature2"]]], axis=1)
+X = df[["StyleID", "Efficiency", "OG", "BoilSize", "ABV"]] # [[]]
+y = one_hot
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
 # modèle Random Forest
-rf_classifier = RandomForestClassifier(n_estimators=100, max_depth=8, min_samples_split=6)
-rf_classifier.fit(X_train, y_train)
+rf_classifier = RandomForestClassifier(random_state=0)
+param_grid = {"criterion":["gini"], "max_depth":[20, 25, 30],"min_samples_leaf":[7, 10, 15],  "min_samples_split":[25, 30, 35], "max_features":[None]}
 
-y_pred = rf_classifier.predict(X_test)
+search = HalvingGridSearchCV(rf_classifier, param_grid, resource='n_estimators', max_resources=110,random_state=0, n_jobs=-1, verbose=2).fit(X_train, y_train)
+print(search.best_params_, search.best_estimator_)
+rf_best =search.best_estimator_
 
-# accuracy
+rf_best.fit(X_train, y_train)
 
-accuracy = accuracy_score(y_test, y_predict)
+y_pred = rf_best.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
 
 classification_report_result = classification_report(y_test, y_pred)
-print("Classification Report:\n", classification_report_result)
-'''
+print("Classification Report:", classification_report_result)
