@@ -14,10 +14,10 @@ df = pd.read_csv('./recipeData_clean.csv', encoding="latin1")
 
 # Scatterplot pour mettre en avant => corrélation positive
 plt.figure()
-plt.scatter(df["ABV"], df["OG"])
-plt.xlabel("ABV")
-plt.ylabel("OG")
-plt.title("La corrélation linéaire de ABV et de OG")
+plt.scatter(df["OG"], df["ABV"])
+plt.xlabel("OG")
+plt.ylabel("ABV")
+plt.title("La corrélation linéaire de OG et de ABV")
 plt.show()
 
 # BIN
@@ -31,8 +31,7 @@ df['bin_IBU'] = pd.cut(df['IBU'], bins, right=False)
 one_hot = pd.get_dummies(df["bin_IBU"])
 np.sum(one_hot)
 print(one_hot)
-# X = pd.concat([one_hot, df[["feature1", "feature2"]]], axis=1)
-X = df[["OG"]] # [[]]
+X = df[["OG"]]
 y = df[["ABV"]]
 
 # Regression Linear pour prédire AVB avec OG
@@ -56,15 +55,13 @@ rf_classifier = RandomForestClassifier(random_state=0)
 param_grid = {"max_depth":[17, 18],"min_samples_leaf":[14,15],  "min_samples_split":[43,44], "max_features":[None]}
 
 search = HalvingGridSearchCV(rf_classifier, param_grid, resource='n_estimators', max_resources=150,random_state=0, n_jobs=-1, verbose=2).fit(X_train, y_train)
-print(search.best_params_, search.best_estimator_)
+
+print(search.best_params_)
 rf_best =search.best_estimator_
-
-rf_best.fit(X_train, y_train)
-
 y_pred = rf_best.predict(X_test)
 
 accuracy = accuracy_score(y_test, y_pred)
-print("Accuracy:", accuracy)
+print("Accuracy:", "{0:.2f}".format(accuracy*100))
 
 classification_report_result = classification_report(y_test, y_pred)
 print("Classification Report:", classification_report_result)
