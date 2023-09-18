@@ -7,11 +7,11 @@ import plotly.express as px
 import plotly.subplots as sp
 import plotly.graph_objs as go
 
-df = pd.read_csv('./beers/recipeData.csv', encoding="latin1")
+df = pd.read_csv('./recipeData.csv', encoding="latin1")
 
 df = df.drop(
     columns=["BeerID", "UserId", "URL", "Name", "Style", "PrimingMethod","PrimingAmount",
-             "PitchRate", "MashThickness", "PrimaryTemp", "SugarScale"])
+             "PitchRate", "MashThickness", "PrimaryTemp", "SugarScale", ])
 df = df.dropna()
 
 # Gestion des Outliers ++
@@ -20,6 +20,11 @@ df = df[df["OG"] <= df["OG"].quantile(0.95)]
 df = df[df["FG"] <= df["FG"].quantile(0.95)]
 df = df[df["BoilSize"] <= df["BoilSize"].quantile(0.95)]
 df = df[(df["IBU"] <= 150) & (df["IBU"] > 0)]  #IBU max == 150 & IBU strictement sup à 0
+
+one_hot = pd.get_dummies(df["BrewMethod"])
+print(one_hot)
+df = df.drop(columns=["BrewMethod"])
+df = df.join(one_hot)
 
 colonnes = ["Size(L)", "OG", "FG", "IBU", "BoilSize", "ABV"]
 
@@ -34,7 +39,7 @@ fig_hists.update_xaxes(title_text='Valeur', row=2, col=2)
 
 fig_hists.show()
 fig_hists.write_html('histogrammes_valeurs.html')
-
+print(df)
 # Matrice de correlation
 correlation_matrix = df.corr()
 
