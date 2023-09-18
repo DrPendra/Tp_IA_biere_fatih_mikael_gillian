@@ -44,8 +44,6 @@ RL.fit(X_train,y_train)
 y_predict = RL.predict(X_test)
 MSE = 1/len(y_test) * np.sum((y_predict - y_test)**2)
 print(MSE)
-MAE = 1/len(y_test) * np.sum(abs(y_predict - y_test))
-print(MAE)
 
 
 # Random Forest Classifier
@@ -55,7 +53,7 @@ y = one_hot
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 rf_classifier = RandomForestClassifier(random_state=0)
-param_grid = {"max_depth":[ 21,22, 23,24],"min_samples_leaf":[ 12, 13, 14],  "min_samples_split":[33, 35, 40], "max_features":[None]}
+param_grid = {"max_depth":[17, 18],"min_samples_leaf":[14,15],  "min_samples_split":[43,44], "max_features":[None]}
 
 search = HalvingGridSearchCV(rf_classifier, param_grid, resource='n_estimators', max_resources=150,random_state=0, n_jobs=-1, verbose=2).fit(X_train, y_train)
 print(search.best_params_, search.best_estimator_)
