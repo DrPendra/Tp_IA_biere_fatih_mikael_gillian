@@ -32,8 +32,8 @@ one_hot = pd.get_dummies(df["bin_IBU"])
 np.sum(one_hot)
 print(one_hot)
 # X = pd.concat([one_hot, df[["feature1", "feature2"]]], axis=1)
-X = df[["ABV"]] # [[]]
-y = df[["OG"]]
+X = df[["OG"]] # [[]]
+y = df[["ABV"]]
 
 # Regression Linear pour prédire AVB avec OG
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -48,13 +48,12 @@ MAE = 1/len(y_test) * np.sum(abs(y_predict - y_test))
 print(MAE)
 
 
-# Random Forest Classifier Linear pour prédire AVB avec OG
+# Random Forest Classifier
 X = df[["StyleID", "Efficiency", "OG", "BoilGravity", "ABV"]] # [[]]
 y = one_hot
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# modèle Random Forest
 rf_classifier = RandomForestClassifier(random_state=0)
 param_grid = {"max_depth":[ 21,22, 23,24],"min_samples_leaf":[ 12, 13, 14],  "min_samples_split":[33, 35, 40], "max_features":[None]}
 
