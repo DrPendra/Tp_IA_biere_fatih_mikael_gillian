@@ -56,7 +56,8 @@ plt.scatter(df["ABV"], df["OG"])
 plt.xlabel("ABV")
 plt.ylabel("OG")
 plt.title("La corrélation linéaire de ABV et de OG")
-#plt.show()
+plt.show()
+
 # BIN
 bins = [0, 30, 60, 150]
 labels = ["low", "medium", "high"]
@@ -72,8 +73,59 @@ print(one_hot)
 X = df[["ABV"]] # [[]]
 y = df[["OG"]]
 
-#
+#test corrélation avec IBU
+#2D
 
+plt.figure()
+plt.scatter(df["IBU"], df["OG"])
+plt.xlabel("IBU")
+plt.ylabel("OG")
+#plt.title("La corrélation linéaire de IBU et de OG")
+plt.show()
+plt.close()
+
+plt.figure()
+plt.scatter(df["IBU"], df["ABV"])
+plt.xlabel("IBU")
+plt.ylabel("ABV")
+#plt.title("La corrélation linéaire de IBU et de ABV")
+plt.show()
+plt.close()
+
+plt.figure()
+plt.scatter(df["IBU"], df["StyleID"])
+plt.xlabel("IBU")
+plt.ylabel("StyleID")
+#plt.title("La corrélation linéaire de IBU et de StyleID")
+plt.show()
+plt.close()
+
+#3D
+plt.figure()
+plt.scatter(df["ABV"], df["OG"], c=one_hot)
+plt.xlabel("ABV")
+plt.ylabel("OG")
+#plt.title("La corrélation linéaire de ABV et de OG")
+plt.show()
+plt.close()
+
+plt.figure()
+plt.scatter(df["FG"], df["OG"], c=one_hot)
+plt.xlabel("FG")
+plt.ylabel("OG")
+#plt.title("La corrélation linéaire de ABV et de OG")
+plt.show()
+plt.close()
+
+plt.figure()
+plt.scatter(df["StyleID"], df["BoilSize"], c=one_hot)
+plt.xlabel("StyleID")
+plt.ylabel("BoilSize")
+#plt.title("La corrélation linéaire de ABV et de OG")
+plt.show()
+plt.close()
+
+#
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 RL = LinearRegression()
