@@ -116,3 +116,12 @@ ul {
     color: rgb(77, 77, 77);
     font-weight: bold;
 }
+
+.info-legend {
+    font-size: 10px;
+    text-align: left;
+    color: #5a5a5a;
+}
+.info-legend div{
+    padding: 10px;
+}

@@ -15,9 +15,13 @@
     <button id="btn-predict" class="form-button">Prédire</button>
     <div id="error-form" class="info-error">Les informations entrées ne sont pas correctes!</div>
     <div id="prediction" class="prediction-container">
-        <div class="info-annonce">Voici quelles sont les prédiction :</div>
+        <div class="info-annonce">Voici quelles sont les prédictions :</div>
         <div id="predict-abv" class="predict-form"><span>ABV</span><span>2</span></div>
         <div id="predict-ibu" class="predict-form"><span>IBU</span><span>2</span></div>
+        <div class="info-legend">
+            <div>ABV: Repésente le pourcentage d'alcool du volume de la bière</div>
+            <div>IBU: Représente l'amertume de la bière en PPM (parts par million), divisé en 3 catégories: Low(0-30), Medium(30-60), High(60-150)</div>
+        </div>
     </div>
 </div>
   {% endblock %}
