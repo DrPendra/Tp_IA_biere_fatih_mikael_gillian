@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="form">
+    <ul>
+    {% for col in columns %}
+    <li>
+        <div class="input-container">
+            <label class="label-form">{{col}} : </label>
+            <input indication="{{col}}" class="input-form" type="text">
+        </div>
+          
+      </li>
+    {% endfor %}
+    </ul>
+    <button id="btn-predict" class="form-button">Prédire</button>
+    <div id="error-form" class="info-error">Les informations entrées ne sont pas correctes!</div>
+    <div id="prediction" class="prediction-container">
+        <div class="info-annonce">Voici quelles sont les prédiction :</div>
+        <div id="predict-abv" class="predict-form"><span>ABV</span><span>2</span></div>
+        <div id="predict-ibu" class="predict-form"><span>IBU</span><span>2</span></div>
+    </div>
+</div>
+  {% endblock %}

@@ -6,6 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.experimental import enable_halving_search_cv
 from sklearn.model_selection import train_test_split, HalvingGridSearchCV
 from sklearn.metrics import accuracy_score, classification_report
+from joblib import dump, load
 
 
 pd.set_option('display.max_columns', None) # a check c'est quoi
@@ -44,6 +45,7 @@ y_predict = RL.predict(X_test)
 MSE = 1/len(y_test) * np.sum((y_predict - y_test)**2)
 print(MSE)
 
+dump(RL, 'model_Linear_Regression.joblib') 
 
 # Random Forest Classifier
 X = df[["StyleID", "Efficiency", "OG", "BoilGravity", "ABV"]] # [[]]
@@ -65,3 +67,5 @@ print("Accuracy:", "{0:.2f}".format(accuracy*100))
 
 classification_report_result = classification_report(y_test, y_pred)
 print("Classification Report:", classification_report_result)
+
+dump(rf_best, 'model_Random_Forest.joblib') 

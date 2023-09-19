@@ -1,0 +1,118 @@
+/* Réinitialisation des marges et des rembourrages pour le corps et le HTML */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Styles pour la classe "container" */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #f0f0f0; /* Couleur de fond */
+}
+
+h1 {
+    margin-bottom: 20px; /* Marge en bas pour l'en-tête du formulaire */
+}
+
+/* Styles pour le formulaire */
+.form {
+    max-width: 400px; /* Largeur maximale du formulaire */
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff; /* Couleur de fond du formulaire */
+    border: 1px solid #ddd; /* Bordure du formulaire */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre */
+    text-align: center;
+}
+
+
+.form-button {
+    background-color: #007bff; /* Couleur de fond du bouton */
+    color: #fff; /* Couleur du texte du bouton */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: auto;
+    transition: background-color 0.3s;
+}
+
+.form-button:hover {
+    background-color: #0056b3; /* Couleur de fond du bouton au survol */
+}
+
+.input-container {
+    display: flex;
+    background-color: #fff;
+    padding: 10px;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-form {
+    width: 100%; 
+    display: inline-block;
+    border: 0px white;
+    margin-left: 10px;
+}
+
+.input-form:focus{
+    outline: none !important;
+}
+
+.label-form {
+    display: inline-block; 
+    white-space: nowrap;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.info-error {
+    display: none;
+    background-color: #dcd3d3;
+    padding: 10px;
+    border-radius: 5px;
+    color: red;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.info-annonce {
+    padding: 10px;
+}
+
+.prediction-container {
+    margin: 10px auto;
+    display: none;
+}
+
+.predict-form {
+    display: inline-block;
+    background-color: #ede6e6;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px auto;
+    text-align: center;
+    width: 30%;
+}
+
+.predict-form span:nth-of-type(1){
+    display: block;
+    color: rgb(77, 77, 77);
+}
+
+.predict-form span:nth-of-type(2){
+    display: block;
+    color: rgb(77, 77, 77);
+    font-weight: bold;
+}
