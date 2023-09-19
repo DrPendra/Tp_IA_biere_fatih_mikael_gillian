@@ -43,7 +43,9 @@ RL.fit(X_train,y_train)
 
 y_predict = RL.predict(X_test)
 MSE = 1/len(y_test) * np.sum((y_predict - y_test)**2)
-print(MSE)
+print("MSE =" ,  MSE.to_string(index=False))
+MAE = 1/len(y_test) * np.sum(abs(y_predict - y_test))
+print("MAE =" ,  MAE.to_string(index=False))
 
 dump(RL, 'model_Linear_Regression.joblib') 
 
