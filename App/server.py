@@ -26,6 +26,7 @@ def index():
 def traiter_requete_ajax():
     try:
         data = request.json
+
         dataForDf = {
             "OG":[float(data["OG"])],
             "StyleID":[int(round(float(data["StyleID"])))],
@@ -33,11 +34,11 @@ def traiter_requete_ajax():
             "BoilGravity":[float(data["BoilGravity"])],
         }
         df = pd.DataFrame(dataForDf)
-        
         abv = Lr.predict(df[["OG"]])
         df["ABV"] = abv
 
         ibu = Rf.predict(df[["StyleID", "Efficiency", "OG", "BoilGravity", "ABV"]])
+
 
         abv = "{:.4f}".format(abv[0,0])
 

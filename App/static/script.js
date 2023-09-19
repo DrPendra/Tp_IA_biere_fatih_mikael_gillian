@@ -37,8 +37,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById('prediction').style.display = "block"
                 document.getElementById('predict-abv').children[1].textContent = jsonResp["abv"]
                 document.getElementById('predict-ibu').children[1].textContent = jsonResp["ibu"]
+                document.getElementById('error-server').style.display = "none"
             } else {
                 document.getElementById('prediction').style.display = "none"
+                document.getElementById('error-server').style.display = "inline-block"
                 console.error('Erreur lors de la requête.');
             }
         };
